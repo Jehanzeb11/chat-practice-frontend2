@@ -1,4 +1,5 @@
 "use client"
+import ChatBox from '@/components/ChatBox'
 import Sidebar from '@/components/sidebar'
 import { baseURl } from '@/config/api'
 import axios from 'axios'
@@ -14,8 +15,11 @@ const page = () => {
 
 
   return (
-    <div>
+    <div className='flex'>
         <Sidebar/>
+
+
+        <ChatBox />
     </div>
   )
 }

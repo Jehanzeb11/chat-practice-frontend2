@@ -1,11 +1,12 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { Button } from '../ui/button'
+import { Button } from "@/components/ui/button"
 import MyChats from '../MyChats'
 import axios from 'axios'
 import { baseURl } from '@/config/api'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectChat, setChats } from '@/redux/chatSlice'
+import GroupChatCreate from '../groupChatFrom'
 
 const Sidebar = () => {
     const token = localStorage.getItem("token")
@@ -54,14 +55,14 @@ try {
         }
     })
 
-if (chats.chat.find((c:any)=>c._id === data._id ) ){
+if (chats.find((c:any)=>c._id === data._id ) ){
     dispatch(setChats([data,...chats]))
 }
 
 console.log(data)
 
 dispatch(selectChat(data?.chat))
-
+setSearch("")
 
 } catch (error) {
     console.log(error)
@@ -76,7 +77,11 @@ dispatch(selectChat(data?.chat))
                 <Button>Search</Button>
             </form>
 
+<div className="mt-3 w-full flex justify-end">
 
+<GroupChatCreate searchText={setSearch} />
+
+</div>
 
             {users?.map((user: any, ind: number) => {
                 return (
