@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SendMessageCmp from "../sendMessage";
 import { useSelector } from "react-redux";
 import { getSender } from "@/config/chatlogic";
@@ -9,13 +9,28 @@ const ChatBox = () => {
 
   const user = JSON.parse(userData);
 
-  const { selectedChat } = useSelector((state: any) => state.chat);
+  const { selectedChat,socketConnection } = useSelector((state: any) => state.chat);
 
-  console.log("selectedChat === ", selectedChat?._id);
+
+useEffect(()=>{
+  socketConnection?.on("messageRecieved",(message:any)=>{
+
+if (!selectedChat || selectedChat._id !== message.chat._id) {
+  return;
+}else{
+  console.log("realtime message",message)
+}
+
+
+  })
+})
 
   return (
-    <div className="w-full h-screen">
+      <>
+    {/* {selectedChat ? */}
+    <div className="w-full h-screen p-3">
 
+      <div className="h-[94vh]">
       {selectedChat ? (
         <>
           {selectedChat.isGroupChat && <UpdateGroupModal />}
@@ -26,13 +41,23 @@ const ChatBox = () => {
         </h1>
             </>
       ) : (
-        <div>
-          <p>Select Chat to start messaging</p>
+        <div className="flex justify-center items-center h-full w-full">
+          <h3 className="text-2xl font-medium capitalize">Select Chat to start messaging</h3>
         </div>
       )}
+      </div>
+
+<div className="flex items-end w-full">
 
       <SendMessageCmp />
+</div>
+
+
     </div>
+    {/* :
+    <div className="select chat to continue"></div>
+  } */}
+    </>
   );
 };
 

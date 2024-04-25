@@ -7,6 +7,8 @@ import { jwtDecode } from "jwt-decode";
 const initialState:any ={
   chats: [],
   selectedChat: null,
+  socketConnection:null,
+  fetChatsAgain: false,
   loading: false,
   error: false,
 }
@@ -28,9 +30,29 @@ const chatSlice = createSlice({
        state.chats = [...action.payload]
 
   },
+
+  setFetchChatsAgain(state, action) {
+
+    console.log("action of etch chats again",action.payload)
+
+     state.fetChatsAgain = action.payload
+
+},
+
+
+
+setConnectSocket(state, action) {
+
+  console.log("socket connection",action.payload)
+
+   state.socketConnection = action.payload
+
+},
+
+
   },
 });
 
-export const {selectChat,setChats} = chatSlice.actions;
+export const {selectChat,setChats,setFetchChatsAgain,setConnectSocket} = chatSlice.actions;
 
 export default chatSlice.reducer;

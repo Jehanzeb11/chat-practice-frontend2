@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { FormEvent, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useDispatch, useSelector } from "react-redux";
-import { selectChat, setChats } from "@/redux/chatSlice";
+import { selectChat, setChats, setFetchChatsAgain, } from "@/redux/chatSlice";
 import {
   Dialog,
   DialogContent,
@@ -24,7 +24,7 @@ const UpdateGroupModal = () => {
 
   const dispatch = useDispatch();
 
-  const { selectedChat } = useSelector((state: any) => state.chat);
+  const { selectedChat,fetChatsAgain } = useSelector((state: any) => state.chat);
 
   const token = localStorage.getItem("token");
 
@@ -63,7 +63,7 @@ const UpdateGroupModal = () => {
     }
   };
 
-  const handleDeleteUser = (user: any) => {
+  const handleDeleteUser =async  (user: any) => {
 
     if (selectedChat?.groupAdmin?._id !== loggedInUser?.userId && user._id !== loggedInUser?.userId) {
         alert("Only Admin Can Remove user")
@@ -71,7 +71,7 @@ const UpdateGroupModal = () => {
     }
 
     try {
-        const {data}:any = axios.put(`${baseURl}/removetogroup`,{
+        const {data}:any = await axios.put(`${baseURl}/removetogroup`,{
             chatId:selectedChat._id,
             userId:user._id
         },{
@@ -83,7 +83,15 @@ const UpdateGroupModal = () => {
 
         user._id === loggedInUser?.userId_id ? selectChat(null) : ""
 
-        console.log(data)
+        console.log(fetChatsAgain)
+
+
+
+
+if (data) {
+  dispatch(setFetchChatsAgain(!fetChatsAgain))
+}
+
 
     } catch (error) {
         console.log(error)
@@ -91,7 +99,7 @@ const UpdateGroupModal = () => {
 
   };
 
-  const handleAddUser = (user: any) => {
+  const handleAddUser = async (user: any) => {
 
     if (selectedChat?.users?.find((c:any)=>c._id === user?.userId)) {
         alert("User Already In Group")
@@ -104,7 +112,7 @@ const UpdateGroupModal = () => {
     }
 
     try {
-        const {data}:any = axios.put(`${baseURl}/addtogroup`,{
+        const {data}:any = await axios.put(`${baseURl}/addtogroup`,{
             chatId:selectedChat._id,
             userId:user._id
         },{
@@ -112,6 +120,13 @@ const UpdateGroupModal = () => {
                 Authorization:`Bearer ${token}`
             }
         })
+
+        console.log(fetChatsAgain)
+
+if (data) {
+  dispatch(setFetchChatsAgain(!fetChatsAgain))
+}
+
     } catch (error) {
         console.log(error)
     }
@@ -126,9 +141,11 @@ useEffect(()=>{
 },[selectedChat])
 
 
-const handleRename = ()=>{
+const handleRename = async ()=>{
+  // dispatch(setFetchChatsAgain(!fetChatsAgain))
+
     try {
-        const {data} : any = axios.put(`${baseURl}/renamegroup`,{
+        const {data} : any = await axios.put(`${baseURl}/renamegroup`,{
             chatId:selectedChat?._id,
 chatName:groupChatName
         },{
@@ -137,7 +154,10 @@ chatName:groupChatName
             }
         })
 
-console.log(data)
+        
+         dispatch(setFetchChatsAgain(!fetChatsAgain))
+          
+        console.log(fetChatsAgain)
 
     } catch (error) {
         console.log(error)

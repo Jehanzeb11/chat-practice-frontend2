@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { FormEvent, useState } from "react";
 import { Button } from "../ui/button";
 import { useDispatch, useSelector } from "react-redux";
-import { setChats } from "@/redux/chatSlice";
+import { setChats, setFetchChatsAgain } from "@/redux/chatSlice";
 import {
   Dialog,
   DialogContent,
@@ -14,6 +14,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Input } from "../ui/input";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 const GroupChatCreate = ({ searchText }: { searchText: any }) => {
   const dispatch = useDispatch();
@@ -87,6 +89,7 @@ const GroupChatCreate = ({ searchText }: { searchText: any }) => {
 
       if (data) {
         dispatch(setChats([data?.chat, ...chats]));
+        dispatch(setFetchChatsAgain(true))
 
         console.log("created Chat", data);
       }
@@ -95,6 +98,8 @@ const GroupChatCreate = ({ searchText }: { searchText: any }) => {
     }
     setOpen(false);
     searchText("");
+    dispatch(setFetchChatsAgain(false))
+
   };
 
   return (
@@ -108,7 +113,7 @@ const GroupChatCreate = ({ searchText }: { searchText: any }) => {
           + New Group
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[25%]">
+      <DialogContent className="sm:max-w-[40%]">
         <DialogHeader>
           <DialogTitle>Create Group</DialogTitle>
           <DialogDescription>
@@ -118,25 +123,35 @@ const GroupChatCreate = ({ searchText }: { searchText: any }) => {
         <div className="grid gap-4 py-4">
           <div>
             <form onSubmit={handleSubmit}>
+
+              <div className="flex gap-1">
               {selectedUses?.map((user: any, ind) => (
                 <Button
-                  variant={"link"}
-                  type="button"
-                  onClick={() => handleDeleteUser(user)}
+                variant={"chip"}
+                type="button"
+                color=""
+                className="rounded-full flex gap-1"
+                
                 >
-                  {user.username}
+                  <span>{user.username} </span> 
+                  <AiFillCloseCircle onClick={() => handleDeleteUser(user)} color="#d10404" size={18}/>
                 </Button>
               ))}
+              </div>
 
-              <input
+
+              <Input
                 type="text"
                 placeholder="Group name"
                 onChange={(e) => setGroupChatName(e.target.value)}
+                className="mt-2"
               />
-              <input
+
+              <Input
                 type="text"
                 placeholder="User name"
                 onChange={(e) => handleSearch(e.target.value)}
+                className="mt-2"
               />
 
               <div className="p-2">
