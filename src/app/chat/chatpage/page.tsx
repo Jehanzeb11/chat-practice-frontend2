@@ -1,4 +1,3 @@
-"use client"
 import ChatBox from '@/components/ChatBox'
 import Sidebar from '@/components/sidebar'
 import { baseURl } from '@/config/api'

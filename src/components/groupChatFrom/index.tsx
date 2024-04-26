@@ -17,7 +17,7 @@ import {
 import { Input } from "../ui/input";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-const GroupChatCreate = ({ searchText }: { searchText: any }) => {
+const GroupChatCreate = ({ open,setOpen }: { open:any,setOpen:any }) => {
   const dispatch = useDispatch();
 
   const { chats } = useSelector((state: any) => state.chat);
@@ -29,7 +29,6 @@ const GroupChatCreate = ({ searchText }: { searchText: any }) => {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
 
   const handleSearch = async (query: string) => {
     setSearch(query);
@@ -97,7 +96,6 @@ const GroupChatCreate = ({ searchText }: { searchText: any }) => {
       console.log(error);
     }
     setOpen(false);
-    searchText("");
     dispatch(setFetchChatsAgain(false))
 
   };
@@ -105,13 +103,13 @@ const GroupChatCreate = ({ searchText }: { searchText: any }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
+        {/* <Button
           variant={"secondary"}
           type="button"
-          onClick={() => setOpen(true)}
+          // onClick={() => setOpen(true)}
         >
           + New Group
-        </Button>
+        </Button> */}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[40%]">
         <DialogHeader>

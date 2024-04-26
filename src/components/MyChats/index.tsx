@@ -68,7 +68,7 @@ const dispatch = useDispatch()
 return(
     <div key={chat._id}>
 
-<button className='w-full hover:bg-slate-400 text-gray-300 hover:text-gray-800 rounded-3xl p-1 mt-2' onClick={()=>handleChat(chat)}> 
+<button className='w-full bg-transparent hover:bg-gray-500 text-gray-300 rounded-full p-1 mt-2' onClick={()=>handleChat(chat)}> 
 
 <div className='flex gap-2 items-center relative'>
 
@@ -76,7 +76,7 @@ return(
 
 <img src='https://github.com/shadcn.png' className='rounded-full w-8'/>
 
-<p className='capitalize font-medium text-xs'>
+<p className='capitalize font-semibold text-xs'>
 {!chat.isGroupChat ? getSender(user,chat.users) : chat.chatName}
 </p>
 
