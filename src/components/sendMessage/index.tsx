@@ -4,8 +4,8 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import io from 'socket.io-client';
-import { selectChat } from '@/redux/chatSlice';
-import { useSelector } from 'react-redux';
+import { sendMessage } from '@/redux/chatSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { baseURl } from '@/config/api';
 import { TiLocationArrow } from "react-icons/ti";
@@ -24,6 +24,8 @@ import {
 
 const SendMessageCmp = () => {
 
+  const dispatch = useDispatch()
+
   const {selectedChat,socketConnection} = useSelector((state:any)=>state.chat)
 
 const user:any = localStorage.getItem("userData")
@@ -35,11 +37,9 @@ const [message,setMessage] = useState('')
 const [position, setPosition] = useState("bottom")
 
 
-console.log(user)
-
-
 const handleSubmit = async (e:FormEvent)=>{
 e.preventDefault()
+dispatch(sendMessage(message))
 
 try {
   const {data}  = await axios.post(`${baseURl}/sendmessage`,{
@@ -51,28 +51,39 @@ chatId:selectedChat._id
     }
   })
 
-  socketConnection.emit("newMessage",data)
+  socketConnection?.emit("newMessage",data)
 
-console.log(data)
+
+setMessage("")
 
 } catch (error) {
   console.log(error)
 }
 
-
 }
 
-// const messageChange = (e:any) =>{
 
-//   if (e.target.value.startsWith("https://") || e.target.value.startsWith("http://")) {
-    
-//   }
+
+function detectLinks(text:string) {
+  const urlRegex = /(?:https?:\/\/\S+)|(?:^|[^.\w])([\w.+-]+\.[a-zA-Z]{2,}(?:\b|\/)?)/gi;
   
-//   setMessage(e.target.value)
-// }
+  return text.replace(urlRegex, (match, p1) => {
+    if (match.startsWith('http')) {
+      return `<a href="${match}" className="text-blue-500" target="_blank">${match}</a>`;
+    } else {
+      return `<a href="http://${match}" className="text-blue-500" target="_blank">${match}</a>`;
+    }
+  });
+}
+
+// Example usage
+// const messageText = "Hey, check out this link: https://example.com";
+const messageWithLinks = detectLinks(message);
 
   return (
     <div className='w-full'>
+{/* <p dangerouslySetInnerHTML={{ __html: messageWithLinks }} className='text-blue'></p> */}
+
       <form className='w-full flex h-full gap-2 justify-center items-center' onSubmit={handleSubmit}>
 
       <DropdownMenu>
@@ -90,7 +101,7 @@ console.log(data)
       </DropdownMenuContent>
     </DropdownMenu>
 
-<Input placeholder='Message' className={`w-full rounded-full ${message?.startsWith("https://") || message?.startsWith("http://") || message?.endsWith(".com") ? "text-blue-500 underline" : ""}`}value={message} onChange={(e)=>setMessage(e.target.value)}/>
+<Input placeholder='Message' className={`rounded-full bg-white ${message?.startsWith("https://") || message?.startsWith("http://") || message?.endsWith(".com") ? "text-blue-500 underline" : ""}`}value={message} onChange={(e)=>setMessage(e.target.value)}/>
 
 <Button type='submit' className='rounded-full' disabled={message ? false : true} ><TiLocationArrow color='#f5f5f5' size={25}/></Button>
 

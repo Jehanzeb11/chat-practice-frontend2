@@ -6,7 +6,6 @@ import { jwtDecode } from 'jwt-decode';
 export const registerUser = createAsyncThunk("register/user", async ({username,email,password}:{username:string,email:string,password:string}) => {
         try {
             const { data } = await axios.post(`${baseURl}/register`, {username,email,password});
-            console.log(data);
 if (data) {   
     JSON.stringify(localStorage.setItem("token",data?.token))
 }
@@ -23,7 +22,6 @@ export const loginUser = createAsyncThunk("login/user", async ({email,password}:
         const { data } = await axios.post(`${baseURl}/login`, {email,password});
 
         const decodedData:any = jwtDecode(data.token)
-        console.log(decodedData);
 if (data && decodedData) {
 localStorage.setItem("token",data?.token)
 localStorage.setItem("userData",JSON.stringify(decodedData))

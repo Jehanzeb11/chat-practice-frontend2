@@ -1,58 +1,61 @@
-import { baseURl } from "@/config/api";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+import { createSlice } from "@reduxjs/toolkit";
 
+// Define type for message objects (optional but recommended)
+interface Message {
+  content: string; // Add other message properties as needed
+}
 
-const initialState:any ={
+const initialState: {
+  chats: []; // Replace with actual chat data structure
+  selectedChat: null;
+  socketConnection: null;
+  fetchChatsAgain: false;
+  loading: false;
+  error: false;
+  newMessages: Message[]; // Use Message interface for type safety
+} = {
   chats: [],
   selectedChat: null,
-  socketConnection:null,
-  fetChatsAgain: false,
+  socketConnection: null,
+  fetchChatsAgain: false,
   loading: false,
   error: false,
-}
+  newMessages: [],
+};
+
 const chatSlice = createSlice({
-  name: "users",
+  name: "chat",
   initialState,
   reducers: {
-    selectChat(state: any, action) {
-
-        console.log("action.payload",action.payload)
-
-        state.selectedChat = action.payload
-
+    selectChat(state, action) {
+      state.selectedChat = action.payload;
     },
     setChats(state, action) {
-
-      console.log("action.payload",action.payload)
-
-       state.chats = [...action.payload]
-
-  },
-
-  setFetchChatsAgain(state, action) {
-
-    console.log("action of etch chats again",action.payload)
-
-     state.fetChatsAgain = action.payload
-
-},
-
-
-
-setConnectSocket(state, action) {
-
-  console.log("socket connection",action.payload)
-
-   state.socketConnection = action.payload
-
-},
-
-
+      state.chats = action.payload;
+    },
+    setFetchChatsAgain(state, action) {
+      state.fetchChatsAgain = action.payload;
+    },
+    setConnectSocket(state, action) {
+      state.socketConnection = action.payload;
+    },
+    sendMessage(state, action) {
+      // Assuming synchronous message sending for now
+      state.newMessages.push(action.payload); // Use spread operator for immutability
+    },
+    clearNewMessages(state) {
+      state.newMessages = []; // Reset new messages on chat change or send
+    },
   },
 });
 
-export const {selectChat,setChats,setFetchChatsAgain,setConnectSocket} = chatSlice.actions;
+export const {
+  selectChat,
+  setChats,
+  setFetchChatsAgain,
+  setConnectSocket,
+  sendMessage,
+  clearNewMessages,
+} = chatSlice.actions;
 
 export default chatSlice.reducer;

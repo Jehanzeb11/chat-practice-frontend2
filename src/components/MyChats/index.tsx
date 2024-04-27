@@ -58,7 +58,7 @@ const dispatch = useDispatch()
           
             dispatch(selectChat(chat))
 
-            socketConnection.emit("joinChat",chat?._id)
+            socketConnection?.emit("joinChat",chat?._id)
           
                 }
 
