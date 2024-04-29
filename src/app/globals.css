@@ -86,3 +86,30 @@
   -ms-overflow-style: none;
   scrollbar-width: none; /* Firefox */
 }
+
+
+.loginBg{
+  background: rgb(2,0,36);
+  background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(0,9,55,1) 45%, rgba(0,0,10,1) 100%);
+}
+
+
+.loginBg{
+  background: rgb(0, 0, 0);
+  background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(0,9,55,1) 45%, rgba(0,0,10,1) 100%);
+}
+
+.sidebarBg{
+  background: rgb(2,0,36);
+  background: linear-gradient(circle, rgba(2,0,36,1) 0%, rgba(0,9,55,1) 45%, rgba(0,0,10,1) 100%);
+}
+
+.blurLoginbg{
+  background-color: #ffffff18;
+  backdrop-filter: blur(50px);
+}
+
+.blurSidebarbg{
+  background-color: #ffffff18;
+  backdrop-filter: blur(50px);
+}

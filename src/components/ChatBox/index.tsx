@@ -8,6 +8,8 @@ import { IoCallOutline , IoVideocamOutline} from "react-icons/io5";
 import { FaEllipsis } from "react-icons/fa6";
 import SideCollapse from "../sideCollapse";
 import Image from "next/image";
+import Lottie from "react-lottie"
+import selectAnimation from "../../lottieAnimation/select-chat.json"
 
 const ChatBox = () => {
   const userData: any = localStorage.getItem("userData");
@@ -34,6 +36,20 @@ if (!selectedChat || selectedChat._id !== message.chat._id) {
 })
 
 console.log("messages == >>>  ",newMessages)
+
+
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: selectAnimation,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice"
+  }
+};
+
+
+
+
 
   return (
       <>
@@ -156,8 +172,12 @@ console.log("messages == >>>  ",newMessages)
         </div>
 
 :
-<div className="flex justify-center items-center h-full w-full">
-<h3 className="text-2xl font-medium capitalize">Select Chat to start messaging</h3>
+<div className="flex justify-center items-center h-full gap-8 flex-col w-full loginBg">
+
+
+<Lottie options={defaultOptions} height={400} width={400}/>
+
+<h3 className="text-2xl font-medium capitalize text-white">Select Chat to start messaging</h3>
 </div>
   }
   </div>

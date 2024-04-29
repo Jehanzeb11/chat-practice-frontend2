@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['github.com']
+    domains: ['github.com','www.famebusinesssolutions.com','img.freepik.com']
   },
     redirects: () => {
         return [
@@ -11,6 +11,9 @@ const nextConfig = {
             permanent: true,
           },
         ];
+      },
+      env: {
+        API_URL: process.env.NEXT_PUBLIC_BASE_URL,
       },
 };
 

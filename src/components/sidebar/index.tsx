@@ -78,36 +78,43 @@ setSearch("")
     }
 
     return (
-        <aside className='w-96 z-10 p-2 bg-[#2B2D31] max-h-[100vh] overflow-y-scroll sticky top-0 left-0 scrollbar-hidden'>
+        <aside className='w-96 z-10 p-2  sidebarBg max-h-[100vh] overflow-y-scroll sticky top-0 left-0 scrollbar-hidden border-r-[1px] border-gray-500'>
 
-<div className='flex items-start gap-2 h-full'>
+<div className='flex items-start gap-2 h-full '>
 
-    <div className='bg-[#3a3c41] h-full w-16 p-1 rounded'>
+    <div className='blurSidebarbg h-full w-16 p-1 rounded'>
 
-    <Button className='cursor-pointer my-1 bg-transparent hover:bg-blend-darken' onClick={()=>setOpen(true)}>
+    <Button className='cursor-pointer my-1 bg-transparent hover:bg-indigo-900' onClick={()=>setOpen(true)}>
 <IoMdAddCircle size={20} className='p-0 m-0' color='#f5f5f5'/>
     </Button>
 
-    <Button className='cursor-pointer my-1 bg-transparent hover:bg-blend-darken'>
+    <Button className='cursor-pointer my-1 bg-transparent hover:bg-indigo-900'>
 <BiHomeCircle size={20} className='p-0 m-0' color='#f5f5f5'/>
     </Button>
 
-    <Button className='cursor-pointer my-1 bg-transparent hover:bg-blend-darken'>
+    <Button className='cursor-pointer my-1 bg-transparent hover:bg-indigo-900'>
 <MdOutlineMessage size={20} className='p-0 m-0' color='#f5f5f5'/>
     </Button>
 
-    <Button className='cursor-pointer my-1 bg-transparent hover:bg-blend-darken'>
+    <Button className='cursor-pointer my-1 bg-transparent hover:bg-indigo-900'>
 <RiWechatFill size={20} className='p-0 m-0' color='#f5f5f5'/>
     </Button>
 </div>
 
 <div>
 
+<div>
 
-            <form className='flex gap-2 w-full bg-[#3a3a3a] rounded-full px-2 py-1 '>
-                <input type="text" required placeholder='search User' className='w-full rounded-2xl bg-[#3a3a3a] border-0 outline-none text-gray-300 text-sm' onChange={(e) => setSearch(e.target.value)} />
+<div className="text-white mb-2">
+    <h4 className='text-base'>Messages (20)</h4>
+</div>
+
+            <form className='flex gap-2 w-full blurSidebarbg  rounded px-2 py-1'>
+                <input type="text" required placeholder='search User' className='w-full rounded bg-transparent border-0 outline-none text-gray-300 text-sm' onChange={(e) => setSearch(e.target.value)} />
                 <Button className='bg-transparent hover:bg-transparent p-0'><BiSearch size={20}/></Button>
             </form>
+
+</div>
 
 <div className='h-full w-full'>
 
