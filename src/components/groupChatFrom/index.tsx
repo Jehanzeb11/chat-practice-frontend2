@@ -111,9 +111,9 @@ const GroupChatCreate = ({ open,setOpen }: { open:any,setOpen:any }) => {
           + New Group
         </Button> */}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[40%]">
+      <DialogContent className="lg:max-w-[30%] bg-gray-900 border-none text-gray-300">
         <DialogHeader>
-          <DialogTitle>Create Group</DialogTitle>
+          <DialogTitle className="uppercase mb-2 ">Create Group</DialogTitle>
           <DialogDescription>
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>
@@ -138,18 +138,18 @@ const GroupChatCreate = ({ open,setOpen }: { open:any,setOpen:any }) => {
               </div>
 
 
-              <Input
+              <input
                 type="text"
                 placeholder="Group name"
                 onChange={(e) => setGroupChatName(e.target.value)}
-                className="mt-2"
+                className="mt-2 w-full rounded bg-transparent p-2.5 border-gray-800 border-[1px] outline-none text-gray-300 text-sm"
               />
 
-              <Input
+              <input
                 type="text"
                 placeholder="User name"
                 onChange={(e) => handleSearch(e.target.value)}
-                className="mt-2"
+                className="mt-2 w-full rounded bg-transparent p-2.5 border-gray-800 border-[1px] outline-none text-gray-300 text-sm"
               />
 
               <div className="p-2">
@@ -166,7 +166,7 @@ const GroupChatCreate = ({ open,setOpen }: { open:any,setOpen:any }) => {
               </div>
 
               <DialogFooter>
-                <Button type="submit">Create</Button>
+                <Button variant={'myBtn'} type="submit">Create</Button>
               </DialogFooter>
             </form>
           </div>

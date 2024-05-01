@@ -10,6 +10,7 @@ import SideCollapse from "../sideCollapse";
 import Image from "next/image";
 import Lottie from "react-lottie"
 import selectAnimation from "../../lottieAnimation/select-chat.json"
+import selectAnimation2 from "../../lottieAnimation/select-chat2.json"
 
 const ChatBox = () => {
   const userData: any = localStorage.getItem("userData");
@@ -41,7 +42,7 @@ console.log("messages == >>>  ",newMessages)
 const defaultOptions = {
   loop: true,
   autoplay: true,
-  animationData: selectAnimation,
+  animationData: selectAnimation2,
   rendererSettings: {
     preserveAspectRatio: "xMidYMid slice"
   }
@@ -175,7 +176,7 @@ const defaultOptions = {
 <div className="flex justify-center items-center h-full gap-8 flex-col w-full loginBg">
 
 
-<Lottie options={defaultOptions} height={400} width={400}/>
+<Lottie options={defaultOptions} height={350} width={350}/>
 
 <h3 className="text-2xl font-medium capitalize text-white">Select Chat to start messaging</h3>
 </div>

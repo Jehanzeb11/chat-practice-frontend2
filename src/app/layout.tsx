@@ -3,6 +3,7 @@ import "./globals.css";
 import NoSsr from "./utils/NoSsr";
 import MainProvider from "./utils/MainProvider";
 import Link from "next/link";
+import { ThemeProvider } from "@/components/themeProvider/ThemeProvider";
 
 const inter = Poppins({ subsets: ["latin"],
 style: ["normal"],
@@ -26,7 +27,14 @@ export default function RootLayout({
       <body className={inter.className} suppressHydrationWarning >
       <NoSsr>
         <MainProvider>
+        <ThemeProvider
+         attribute="class"
+         defaultTheme="system"
+         enableSystem
+         disableTransitionOnChange
+        >
         {children}
+        </ThemeProvider>
         </MainProvider>
       </NoSsr>
       {/* <footer className="p-1 sidebarBg text-white">

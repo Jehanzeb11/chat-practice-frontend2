@@ -10,8 +10,8 @@ import GroupChatCreate from '../groupChatFrom'
 import { BiHomeCircle, BiSearch } from "react-icons/bi";
 import { MdOutlineMessage } from "react-icons/md";
 import { RiWechatFill } from "react-icons/ri";
-import { Input } from '../ui/input'
 import { IoMdAddCircle } from "react-icons/io";
+import { ModeToggle } from '../toggleTheme/ToggleTheme'
 
 const Sidebar = () => {
     const token = localStorage.getItem("token")
@@ -78,7 +78,7 @@ setSearch("")
     }
 
     return (
-        <aside className='w-96 z-10 p-2  sidebarBg max-h-[100vh] overflow-y-scroll sticky top-0 left-0 scrollbar-hidden border-r-[1px] border-gray-500'>
+        <aside className='w-96 z-10 p-2 dark:bg-my-gradient max-h-[100vh] overflow-y-scroll sticky top-0 left-0 scrollbar-hidden border-r-[1px] border-gray-500'>
 
 <div className='flex items-start gap-2 h-full '>
 
@@ -99,6 +99,9 @@ setSearch("")
     <Button className='cursor-pointer my-1 bg-transparent hover:bg-indigo-900'>
 <RiWechatFill size={20} className='p-0 m-0' color='#f5f5f5'/>
     </Button>
+
+    <ModeToggle />
+
 </div>
 
 <div>
@@ -109,7 +112,7 @@ setSearch("")
     <h4 className='text-base'>Messages (20)</h4>
 </div>
 
-            <form className='flex gap-2 w-full blurSidebarbg  rounded px-2 py-1'>
+            <form className='flex gap-2 w-full dark:blurSidebarbg  rounded px-2 py-1'>
                 <input type="text" required placeholder='search User' className='w-full rounded bg-transparent border-0 outline-none text-gray-300 text-sm' onChange={(e) => setSearch(e.target.value)} />
                 <Button className='bg-transparent hover:bg-transparent p-0'><BiSearch size={20}/></Button>
             </form>
@@ -129,7 +132,7 @@ setSearch("")
                 return (
                     <div key={user._id}>
 
-                    <button className='w-full bg-transparent hover:bg-gray-500 text-gray-300 rounded-full p-1 mt-2' onClick={()=>handleChat(user._id)}> 
+                    <button className='w-full bg-transparent hover:bg-indigo-500 text-gray-300 rounded p-1 mt-2' > 
                     
                     <div className='flex gap-2 items-center relative'>
                     
@@ -138,7 +141,7 @@ setSearch("")
                     <img src='https://github.com/shadcn.png' className='rounded-full w-8'/>
                     
                     <p className='capitalize font-semibold text-xs'>
-                    {user.username}
+                    Jehanzeb Siddiqui
                     </p>
                     
                     </div>

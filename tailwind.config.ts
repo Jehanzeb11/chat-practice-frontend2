@@ -19,10 +19,12 @@ const config = {
     },
     extend: {
       colors: {
+        pri: "#000526",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
+        gradientSide:"#f1f1f1",
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -72,6 +74,9 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      backgroundImage: {
+        'my-gradient': 'linear-gradient(#000526 0%, rgba(0,9,55,1) 40%, #000111 100%)',
+    }
     },
   },
   plugins: [require("tailwindcss-animate")],
